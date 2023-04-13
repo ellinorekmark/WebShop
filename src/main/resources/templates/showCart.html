@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="header">
+    <div class="shop-header">
+        <h1>Shop</h1>
+    </div>
+
+    <div class="cart">
+        <p><strong>Items in cart: </strong><span th:text="${cart.getItemCount()}"></span></p>
+        <p><strong>Total cost: </strong><span th:text="${cart.getTotalCost()}"></span></p>
+        <p><strong><a href="/showCart">Show Cart / Checkout</a></strong></p>
+    </div>
+    <div class="menu-bar">
+        <p>
+            <a href="/shop">All Products</a><span>   |   </span>
+            <a href="/fruits">Fruits</a><span>   |   </span>
+            <a href="/vegetables">Vegetable</a><span>   |   </span>
+            <a href="/other">Other</a><span>   |   </span>
+        <form action="/search" method="post">
+            <input type="text" name="searchTerm" value=""/>
+            <input type="submit" value="Search Product">
+        </form>
+        </p>
+    </div>
+</div>
+<div th:switch="${cart.getItemCount()}">
+    <div th:case="0">
+        <p>Your cart is empty! Found nothing you like?</p>
+    </div>
+    <div th:case="*">
+        <div class="order">
+            <p th:text="${message}"></p>
+
+            <p>Shopping Cart</p>
+            <table>
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p: ${cart.getLines()}">
+                    <td><span th:text="${p.getProduct().getName()}"></span></td>
+                    <td><span th:text="${p.getProduct().getPrice()}"></span></td>
+                    <form action="/updateCart" method="post">
+                        <td><input type="number" min="0" max="${p.getInventory()}" th:value="${p.getQuantity()}"
+                                   name="quantity"/></td>
+                        <input type="hidden" th:value="${p.getProduct().getId()}" name="product"/>
+                        <td><span th:text="${p.getLineTotal()}"></span></td>
+                        <td><input type="submit" value="Update"/></td>
+                    </form>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <td>Total:</td>
+                    <td></td>
+                    <td></td>
+                    <td><span th:text="${cart.getTotalCost()}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="customerInfo">
+
+                <p>Name: <span th:text="${user.getName()}"></span></p>
+                <p>Address: <span th:text="${user.getAddress()}"></span></p>
+                <br/>
+                <a href="/confirm">Confirm Order</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

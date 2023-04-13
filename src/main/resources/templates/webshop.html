@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <div class="shop-header">
+            <h1>Shop</h1>
+
+        </div>
+
+        <div class="cart">
+            <p><strong>Items in cart: </strong><span th:text="${cart.getItemCount()}"></span></p>
+            <p><strong>Total cost: </strong><span th:text="${cart.getTotalCost()}"></span></p>
+            <p><strong><a href="/showCart">Show Cart / Checkout</a></strong></p>
+        </div>
+        <div class="menu-bar">
+            <p>
+                <a href="/shop">All Products</a><span>   |   </span>
+                <a href="/fruits">Fruits</a><span>   |   </span>
+                <a href="/vegetables">Vegetable</a><span>   |   </span>
+                <a href="/other">Other</a><span>   |   </span>
+            <form action="/search" method="post">
+                <input type="text" name="searchTerm" value=""/>
+                <input type="submit" value="Search Product">
+            </form>
+            </p>
+        </div>
+
+    </div>
+    <div class="products">
+        <p th:text="${message}"></p>
+        <div class="item" th:each="p: ${productlist}">
+            <img src="image.jpg"><br/>
+            <span th:text="${p.getName()}"></span><br/>
+            <span th:text="${p.getDescription()}"></span><br/>
+            <span th:text="${p.getPrice()}"></span><span>:-</span><br/>
+            <form th:action="@{/addToCart}" method="post">
+                <input type="number" min="0" th:max="${p.getInventory()}" name="quantity"/>
+                <input type="hidden" name="item" th:value="${p.getId()}"/>
+                <input type="submit" value="Add to Cart"/>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

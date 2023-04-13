@@ -1,0 +1,16 @@
+.item {
+    float: left;
+    width: 250px;
+}
+.header{
+    border-bottom-style: double;
+    border-width: medium;
+}
+.shop-header{
+    float: left;
+    width: 50%;
+}
+.user {
+    width: 30%;
+    float: right;
+}

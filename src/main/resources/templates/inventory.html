@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${message}"></p>
+
+<p>Add Inventory</p><br />
+<a href="/admin">\< Return to Admin main. </a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Item Id</th>
+            <th>Product Name</th>
+            <th>Current Inventory</th>
+            <th>Add inventory</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p: ${productlist}">
+            <td><span th:text="${p.getId()}"></span></td>
+            <td><span th:text="${p.getName()}"></span></td>
+            <td><span th:text="${p.getInventory()}"></span></td>
+            <form th:action="@{/restock}" method="post" th:object="${update}">
+                <td>
+
+                <input type="text" th:field="*{count}" name="count" size="2"/>
+                <input type="hidden" name="itemId" th:value="${p.getId()}">
+
+            </td>
+            <td><input type="submit" value="Add" th:name="${p.name}"></td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

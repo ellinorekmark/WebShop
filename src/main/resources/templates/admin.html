@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+
+<div class="header">
+    <h1>Shop</h1>
+    <h2>Admin page</h2>
+</div>
+
+<div>
+    <a href="/restock">Restock Products</a><br/>
+    <a href="/newProduct">Add New Product</a><br/>
+    <br/>
+    <br/>
+    <p>Orders</p>
+    <p>View by:
+    <form action="/filterStatus" method="post">
+        <select name="statusSelect" id="status">
+            <option value="All">All</option>
+            <option th:each="s: ${statusList}" th:value="${s}" th:text="${s}">
+        </select>
+        <input type="submit" value="Filter Orders">
+    </form>
+
+    </p>
+
+    <p>Orders</p>
+    <table style="border-style: solid">
+        <thead>
+        <tr>
+            <td>Order Id</td>
+            <td>Customer</td>
+            <td>Order</td>
+            <td>Total</td>
+            <td>Status</td>
+            <td>Change Status</td>
+        </tr>
+        </thead>
+        <tr th:each="o: ${orders}">
+            <td><span th:text="${o.getId()}"></span></td>
+            <td><span th:text="${o.getCustomer().getName()}"></span><br/>
+                <span th:text="${o.getCustomer().getAddress()}"></span>
+            </td>
+            <td>
+                <p th:each="l: ${o.getLines()}">
+                <span th:text="${l.getProduct().getName()}"></span><span>  -  </span>
+                <span th:text="${l.getQuantity()}"></span><br />
+                </p>
+            </td>
+            <td th:text="${o.getTotalCost()}"><span>:-</span></td>
+            <td th:text="${o.getStatus()}"><span>:-</span></td>
+            <form action="/updateOrderStatus" method="post">
+            <td><select name="orderStatus" field="status" th:value="${o.getStatus()}">
+                <option text="Change status:"></option>
+                <option th:each="s: ${statusList}" th:value="${s}" th:text="${s}">
+            </select></td>
+                <input type="hidden" name="order" th:value="${o.getId()}">
+            <td><input type="submit" value="Update Order Status"/></td>
+            </form>
+    </table>
+
+
+</div>
+
+</body>
+</html>
