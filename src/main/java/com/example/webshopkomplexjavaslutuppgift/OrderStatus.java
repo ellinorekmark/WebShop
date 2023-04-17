@@ -1,17 +1,17 @@
 package com.example.webshopkomplexjavaslutuppgift;
 
 public enum OrderStatus {
-    NEW{
+    NEW {
         public String toString() {
             return "New";
         }
     },
-    SENT{
+    SENT {
         public String toString() {
             return "Sent";
         }
     },
-    RETURNED{
+    RETURNED {
         public String toString() {
             return "Returned";
         }

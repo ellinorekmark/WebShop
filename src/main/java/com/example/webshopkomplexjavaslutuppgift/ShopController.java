@@ -33,10 +33,18 @@ public class ShopController {
 
     @PostMapping("/newProduct")
     String postNewProduct(Model m, @Valid Product product, BindingResult br) {
-        service.newProduct(product);
+
         m.addAttribute("product", new Product());
-        m.addAttribute("message", "Product successfully added.");
         m.addAttribute("categories", List.of(Category.values()));
+        if(br.hasErrors()){
+            m.addAttribute("message", "Problem adding product.");
+            return "newProduct";
+        }
+
+        service.newProduct(product);
+
+        m.addAttribute("message", "Product successfully added.");
+
         return "newProduct";
     }
 
@@ -227,6 +235,8 @@ public class ShopController {
     @PostMapping("/updateOrderStatus")
     String updateOrderStatus(Model m, @RequestParam("order") long order,@RequestParam("orderStatus") String status ){
         orderService.updateStatus(order, status);
+        m.addAttribute("statusList", List.of(OrderStatus.values()));
+        m.addAttribute("orders", orderService.ordersBy("All"));
         return "admin";
     }
 

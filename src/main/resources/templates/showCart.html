@@ -17,7 +17,7 @@
         <p><strong><a href="/showCart">Show Cart / Checkout</a></strong></p>
     </div>
     <div class="menu-bar">
-        <p>
+
             <a href="/shop">All Products</a><span>   |   </span>
             <a href="/fruits">Fruits</a><span>   |   </span>
             <a href="/vegetables">Vegetable</a><span>   |   </span>
@@ -26,7 +26,7 @@
             <input type="text" name="searchTerm" value=""/>
             <input type="submit" value="Search Product">
         </form>
-        </p>
+
     </div>
 </div>
 <div th:switch="${cart.getItemCount()}">
@@ -72,6 +72,7 @@
             <div class="customerInfo">
 
                 <p>Name: <span th:text="${user.getName()}"></span></p>
+                <p>Email: <span th:text="${user.getEmail()}"></span></p>
                 <p>Address: <span th:text="${user.getAddress()}"></span></p>
                 <br/>
                 <a href="/confirm">Confirm Order</a>

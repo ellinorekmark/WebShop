@@ -42,7 +42,8 @@ public class OrderLine {
         this.product = product;
         this.quantity = quantity;
     }
-    public double getLineTotal(){
-        return product.getPrice()*getQuantity();
+
+    public double getLineTotal() {
+        return product.getPrice() * getQuantity();
     }
 }

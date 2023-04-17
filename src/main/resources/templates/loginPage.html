@@ -9,12 +9,13 @@
 <p th:text="${message}"></p>
 
 <form th:action="@{/login}" method="post">
-    <span>Name: </span><input type="text" name="username" field=""></span><br/>
+    <span>Name: </span><input type="text" name="username"></span><br/>
     <input type="submit" value="Log in">
 </form>
 <br/><br/>
 <form th:action="@{/newUser}" method="post" th:object="${user}">
     <span>Name: </span><input type="text" th:field="*{name}">
+    <span>Email: </span><input type="text" th:field="*{email}">
     <span>Address: </span><input type="text" th:field="*{address}">
     <input type="submit" value="New User">
 </form>

@@ -1,5 +1,6 @@
 package com.example.webshopkomplexjavaslutuppgift;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ public class Customer {
     private List<ShopOrder> orders;
 
 
+    @Email
+    private String email;
+
+
     public Customer() {
     }
 
@@ -28,12 +33,7 @@ public class Customer {
     }
 
     public boolean isLoggedIn(){
-        if(name == null){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return name != null;
     }
 
     public long getId() {
@@ -79,5 +79,13 @@ public class Customer {
     public ShopOrder getLastOrder(){
         return orders.get(orders.size()-1);
 
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

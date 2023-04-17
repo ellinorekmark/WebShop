@@ -7,7 +7,7 @@
 <body>
 <p th:text="${message}"></p>
 <p>Add Product</p><br />
-<a href="/admin">\< Return to Admin main. </a>
+<a href="/admin">Return to Admin main. </a>
 
 <form th:action="@{/newProduct}" method="post" th:object="${product}">
     <p>Item name: </p><input type="text" th:field="*{name}"/><br/>

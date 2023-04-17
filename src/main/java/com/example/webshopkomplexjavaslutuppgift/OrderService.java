@@ -15,15 +15,15 @@ public class OrderService {
     boolean loggedIn = false;
 
     public List<ShopOrder> ordersBy(String status) {
-        if(status.equals("All")){
+        if (status.equals("All")) {
             return rep.findAll();
         }
         return rep.findByStatus(OrderStatus.valueOf(status.toUpperCase()));
     }
 
-    public void logIn(String pw){
+    public void logIn(String pw) {
         System.out.println("attempt to login");
-        if(pw.equals("admin")){
+        if (pw.equals("admin")) {
             loggedIn = true;
             System.out.println("should be logged in");
         }

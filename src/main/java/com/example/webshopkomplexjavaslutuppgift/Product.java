@@ -23,7 +23,7 @@ public class Product {
     public double price;
     @Min(0)
     public int inventory;
-    @NotNull
+
     public Category category;
 
     public Product() {

@@ -24,6 +24,7 @@ public class ShopOrder {
     public ShopOrder() {
         status = OrderStatus.NEW;
     }
+
     public Customer getCustomer() {
         return customer;
     }
@@ -31,6 +32,7 @@ public class ShopOrder {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
     public ShopOrder(List<OrderLine> lines) {
         this.lines = lines;
     }

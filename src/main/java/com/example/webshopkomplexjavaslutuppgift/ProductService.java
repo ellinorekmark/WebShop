@@ -21,11 +21,12 @@ public class ProductService {
         product.addInventory(itemAmount.count);
         rep.save(product);
     }
-    public void removeInventory(List<OrderLine> items){
+
+    public void removeInventory(List<OrderLine> items) {
         Product product;
         for (OrderLine line : items) {
             product = rep.findById(line.getProduct().getId()).get();
-            product.setInventory(product.getInventory()-line.getQuantity());
+            product.setInventory(product.getInventory() - line.getQuantity());
             rep.save(product);
         }
 

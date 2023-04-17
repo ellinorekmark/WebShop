@@ -19,23 +19,22 @@
             <p><strong><a href="/showCart">Show Cart / Checkout</a></strong></p>
         </div>
         <div class="menu-bar">
-            <p>
-                <a href="/shop">All Products</a><span>   |   </span>
-                <a href="/fruits">Fruits</a><span>   |   </span>
-                <a href="/vegetables">Vegetable</a><span>   |   </span>
-                <a href="/other">Other</a><span>   |   </span>
+            <a href="/shop">All Products</a><span>   |   </span>
+            <a href="/fruits">Fruits</a><span>   |   </span>
+            <a href="/vegetables">Vegetable</a><span>   |   </span>
+            <a href="/other">Other</a><span>   |   </span>
             <form action="/search" method="post">
                 <input type="text" name="searchTerm" value=""/>
                 <input type="submit" value="Search Product">
             </form>
-            </p>
+
         </div>
 
     </div>
     <div class="products">
         <p th:text="${message}"></p>
         <div class="item" th:each="p: ${productlist}">
-            <img src="image.jpg"><br/>
+            <img src="image.jpg" alt ="productImage"><br/>
             <span th:text="${p.getName()}"></span><br/>
             <span th:text="${p.getDescription()}"></span><br/>
             <span th:text="${p.getPrice()}"></span><span>:-</span><br/>
