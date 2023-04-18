@@ -40,13 +40,23 @@ public class ProductService {
         return rep.findById(Long.valueOf(item));
     }
 
-    public List<Product> getCat(Category fruit) {
-        return rep.findByCategory(fruit);
+    public List<Product> getCat(Category cat) {
+        return rep.findByCategory(cat);
     }
 
     public List<Product> search(String search) {
 
         return rep.findByName(search);
+    }
+
+    public Object getProductsByString(String productCategory) {
+
+        if(productCategory.equals("All")){
+            return getAll();
+        }
+        else{
+            return getCat(Category.valueOf(productCategory.toUpperCase()));
+        }
     }
 }
 

@@ -41,6 +41,7 @@
             <form th:action="@{/addToCart}" method="post">
                 <input type="number" min="0" th:max="${p.getInventory()}" name="quantity"/>
                 <input type="hidden" name="item" th:value="${p.getId()}"/>
+                <input type="hidden" name="productCategory" th:value="${productCategory}"/>
                 <input type="submit" value="Add to Cart"/>
             </form>
         </div>

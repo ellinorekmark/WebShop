@@ -75,6 +75,7 @@ public class ShopController {
             m.addAttribute("productlist", service.getAll());
             m.addAttribute("cart", customerService.getCart());
             m.addAttribute("user", customerService.getCustomer());
+            m.addAttribute("productCategory", "All");
             return "webshop";
         } else {
             m.addAttribute("user", new Customer());
@@ -87,6 +88,7 @@ public class ShopController {
         m.addAttribute("productlist", service.getCat(Category.FRUIT));
         m.addAttribute("cart", customerService.getCart());
         m.addAttribute("user", customerService.getCustomer());
+        m.addAttribute("productCategory", "Fruit");
         return "webshop";
     }
 
@@ -95,6 +97,7 @@ public class ShopController {
         m.addAttribute("productlist", service.getCat(Category.VEGETABLE));
         m.addAttribute("cart", customerService.getCart());
         m.addAttribute("user", customerService.getCustomer());
+        m.addAttribute("productCategory", "Vegetable");
         return "webshop";
     }
 
@@ -103,18 +106,20 @@ public class ShopController {
         m.addAttribute("productlist", service.getCat(Category.OTHER));
         m.addAttribute("cart", customerService.getCart());
         m.addAttribute("user", customerService.getCustomer());
+        m.addAttribute("productCategory", "Other");
         return "webshop";
     }
 
 
     @PostMapping("/addToCart")
-    String addToCart(Model m, @RequestParam int item, @RequestParam int quantity) {
+    String addToCart(Model m, @RequestParam int item, @RequestParam int quantity, @RequestParam String productCategory ) {
 
         customerService.addToCart(item, quantity);
 
         m.addAttribute("cart", customerService.getCart());
         m.addAttribute("user", customerService.getCustomer());
-        m.addAttribute("productlist", service.getAll());
+        m.addAttribute("productlist", service.getProductsByString(productCategory));
+        m.addAttribute("productCategory", productCategory);
 
         return "webshop";
     }
@@ -140,9 +145,11 @@ public class ShopController {
     String login(Model m, @RequestParam String username) {
         if(customerService.login(username)){
             m.addAttribute("productlist", service.getAll());
+            m.addAttribute("productCategory", "all");
             m.addAttribute("cart", customerService.getCart());
             m.addAttribute("user", customerService.getCustomer());
             m.addAttribute("orderLine", new OrderLine());
+            m.addAttribute("productCategory", "All");
             return "webshop";
         }
         else{
@@ -168,6 +175,7 @@ public class ShopController {
         m.addAttribute("cart", customerService.getCart());
         m.addAttribute("user", customerService.getCustomer());
         m.addAttribute("orderLine", new OrderLine());
+        m.addAttribute("productCategory", "All");
 
         return "webshop";
     }
@@ -193,6 +201,7 @@ public class ShopController {
         m.addAttribute("user", customerService.getCustomer());
         m.addAttribute("orderLine", new OrderLine());
         m.addAttribute("productlist", service.search(search));
+        m.addAttribute("productCategory", "All");
         return "webshop";
     }
 
