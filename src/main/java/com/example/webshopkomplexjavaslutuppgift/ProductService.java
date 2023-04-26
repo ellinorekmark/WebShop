@@ -16,10 +16,10 @@ public class ProductService {
 
     }
 
-    public void updateInventory(ItemAmount itemAmount) {
-        Product product = rep.findById(itemAmount.itemId).get();
-        product.addInventory(itemAmount.count);
-        rep.save(product);
+    public Product updateInventory(long id, int amount) {
+        Product product = rep.findById(id).get();
+        product.addInventory(amount);
+        return rep.save(product);
     }
 
     public void removeInventory(List<OrderLine> items) {
@@ -32,8 +32,8 @@ public class ProductService {
 
     }
 
-    public void newProduct(Product product) {
-        rep.save(product);
+    public Product newProduct(Product product) {
+        return rep.save(product);
     }
 
     public Optional<Product> getById(int item) {
@@ -49,14 +49,31 @@ public class ProductService {
         return rep.findByName(search);
     }
 
-    public Object getProductsByString(String productCategory) {
+    public List<Product> getProductsByString(String productCategory) throws Exception {
 
-        if(productCategory.equals("All")){
+        if(productCategory.equalsIgnoreCase("All")){
             return getAll();
         }
         else{
-            return getCat(Category.valueOf(productCategory.toUpperCase()));
+            try {
+                return getCat(Category.valueOf(productCategory.toUpperCase()));
+            }
+            catch (Exception e){
+                throw new Exception("Invalid category.");
+            }
         }
+    }
+
+    public boolean deleteProduct(long id) {
+        Optional<Product> p = rep.findById(id);
+        if(p.isPresent()){
+            rep.delete(p.get());
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 }
 

@@ -94,6 +94,10 @@ public class Product {
         }
     }
 
+    public String toString(){
+        return "Item Id: "+ getId() + " - Name: " + getName() + " - In Stock: " + getInventory() + " - Price: "+ getPrice();
+    }
+
 
 
 

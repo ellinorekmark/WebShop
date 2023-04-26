@@ -52,16 +52,14 @@ public class ShopController {
     String getRestockPage(Model m) {
 
         m.addAttribute("productlist", service.getAll());
-
-        m.addAttribute("update", new ItemAmount());
         return "inventory";
     }
 
     @PostMapping("/restock")
-    String postRestockPage(Model m, @ModelAttribute("update") ItemAmount itemAmount) {
+    String postRestockPage(Model m, @RequestParam long id, @RequestParam int amount) {
 
-        service.updateInventory(itemAmount);
-        m.addAttribute("update", new ItemAmount());
+        service.updateInventory(id, amount);
+
         m.addAttribute("productlist", service.getAll());
         m.addAttribute("message", "Inventory updated.");
 
@@ -118,7 +116,11 @@ public class ShopController {
 
         m.addAttribute("cart", customerService.getCart());
         m.addAttribute("user", customerService.getCustomer());
-        m.addAttribute("productlist", service.getProductsByString(productCategory));
+        try {
+            m.addAttribute("productlist", service.getProductsByString(productCategory));
+        } catch (Exception e) {
+            m.addAttribute("productlist", service.getAll());
+        }
         m.addAttribute("productCategory", productCategory);
 
         return "webshop";

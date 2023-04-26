@@ -24,14 +24,14 @@
             <td><span th:text="${p.getId()}"></span></td>
             <td><span th:text="${p.getName()}"></span></td>
             <td><span th:text="${p.getInventory()}"></span></td>
-            <form th:action="@{/restock}" method="post" th:object="${update}">
+            <form th:action="@{/restock}" method="post">
                 <td>
 
-                <input type="text" th:field="*{count}" name="count" size="2"/>
-                <input type="hidden" name="itemId" th:value="${p.getId()}">
+                <input type="text" name="amount" size="2"/>
+                <input type="hidden" name="id" th:value="${p.getId()}">
 
             </td>
-            <td><input type="submit" value="Add" th:name="${p.name}"></td>
+            <td><input type="submit" value="Add"></td>
             </form>
         </tr>
         </tbody>
